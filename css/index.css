@@ -1,0 +1,38 @@
+*{
+    box-sizing: border-box;
+    border: 0;
+    padding:0;
+
+}
+
+.principal-center{
+    height: 80%;
+    width: 80%;
+    margin:0 auto;
+    margin-top: 20px;
+}
+
+.search{
+    height: 80%;
+    width: 80%;
+    margin:0 auto;
+    margin-top: 20px;
+}
+
+.cargando{
+    margin:0 auto;
+    height: 80%;
+    width: 80%;
+    margin-top: 20px;
+    display: none;
+}
+
+.pokemones{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pokemones .con-poke{
+width: 200px;
+height: 200px;
+}

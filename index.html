@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Pokédex</title>
+</head>
+<body>
+
+    <div class="nes-container with-title is-centered principal-center">
+        <p class="title">Bienvenidos a la Pokédex</p>
+        <p>Esta página muestra los pokemones según su generación.<i class="nes-icon is-small like"></i></p>
+    </div>
+
+
+      <div class="nes-container nes-field is-inline search">
+        <label for="inline_field">Generación:</label>
+        <input type="number" min="1" max="8" id="inline_field" class="nes-input" list="tickmarks" placeholder="1 - 8">
+        <datalist id="tickmarks">
+            <option value="1">
+            <option value="2">
+            <option value="3">
+            <option value="4">
+            <option value="5">
+            <option value="6">
+            <option value="7">
+            <option value="8">
+          </datalist>
+        <button type="button" class="nes-btn is-primary" onclick="buscar()">Buscar</button>
+      </div>
+    
+    <div class="cargando">
+        <progress class="nes-progress" value="90" max="100"></progress>
+        <p>Loading...</p>
+    </div>
+
+    <div class="nes-container with-title is-centered principal-center pokemones" id="pokemones">
+        <!-- <p class="title">Pokemones</p> -->
+
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
