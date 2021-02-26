@@ -1,6 +1,6 @@
 
 function buscar(){  
-   let api = 'https://pokeapi.co/api/v2/pokemon/';
+    let api = 'https://pokeapi.co/api/v2/pokemon/';
     let generacion = document.getElementById("inline_field").value;
     let contenidoCards = document.getElementById('pokemones');
 
