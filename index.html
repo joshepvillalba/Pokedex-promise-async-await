@@ -7,6 +7,10 @@
     <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
+    <script
+			  src="https://code.jquery.com/jquery-3.5.1.min.js"
+			  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+			  crossorigin="anonymous"></script>
     <title>Pokédex</title>
 </head>
 <body>
@@ -33,8 +37,8 @@
         <button type="button" class="nes-btn is-primary" onclick="buscar()">Buscar</button>
       </div>
     
-    <div class="cargando">
-        <progress class="nes-progress" value="90" max="100"></progress>
+    <div class="cargando" id ="cargando">
+        <progress id= 'barraCargando' class="nes-progress" value="0" max="100"></progress>
         <p>Loading...</p>
     </div>
 

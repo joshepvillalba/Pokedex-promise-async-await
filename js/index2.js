@@ -1,8 +1,12 @@
 function buscar(){
 
-    let api = 'https://pokeapi.co/api/v2/pokemon/';
     let generacion = document.getElementById("inline_field").value;
     let contenidoCards = document.getElementById('pokemones');
+    let cargar = document.getElementById("cargando");
+    let valorCarga = document.getElementById("barraCargando");
+    
+    
+    cargar.style.cssText = "display:block;";
 
     contenidoCards.innerHTML = "";
 
@@ -53,45 +57,6 @@ function buscar(){
                 pokemones = 151;
                 break;
         }
-    
-    const fetchData = (api)=>{
-        fetch(api)
-            .then(response => response.json())
-            .then(data =>{
-                const datos = {
-                    name: data.name,
-                    id: data.id,
-                    sprites: data.sprites.front_default,
-                }
-
-                const card = document.createElement('article');
-                card.classList.add('nes-container')
-                card.classList.add('con-poke')
-        
-                card.innerHTML = `
-                <p>${datos.id}</p>
-                <div class="card-image">
-                <img class="img-fluid" src="${datos.sprites}" alt="imagen de ${datos.name}">
-                <span class="badge-top">${datos.name}</span>
-                </div>
-                <div class="card-body">
-                </div>
-                `;
-                
-                contenidoCards.appendChild(card);
-                return true
-            } )
-            .catch(error => console.log(error));
-    }
-
-    const anotherFunction = async (api) => {
-        try {
-            const data = await fetchData(api);
-            console.log(data)
-        } catch (error) {
-            console.error(error)
-        }
-    }
 
     let mapeo = [];
 
@@ -99,9 +64,56 @@ function buscar(){
         mapeo.push(i);
     }
 
-    mapeo.map(function(x){
-        anotherFunction(api+x);
-     });
+    const opts = { crossDomain: true };
 
+    const API_URL = "https://pokeapi.co/api/v2/";
+    const POKEMON_URL = "pokemon/:id"
+
+    function obtenerPersonaje(id){
+    //
+        return new Promise((resolve,reject) => {
+            const url = `${API_URL}${POKEMON_URL.replace(':id',id)}`;
+            $.get(url,function(data){
+                resolve(data);
+            }).fail(function(){
+                reject(id)
+            })
+        })
+    }
+
+    function onError(id){
+        console.log(`Sucedio un error al tratar de buscar a ${id}`);
+    }
+
+    var promesas = mapeo.map(id => obtenerPersonaje(id))
+
+    Promise.all(promesas)
+    .then(personajes => {personajes.forEach(personaje => dibujar(personaje))
+        valorCarga.value=100;
+        contenidoCards.style.cssText = "display:flex;";
+        setTimeout(() => {
+            cargar.style.cssText = "display:none;"
+            },1000)
+})
+    .catch(onError)
+
+    function dibujar(datos){
+        const card = document.createElement('article');
+        card.classList.add('nes-container')
+        card.classList.add('con-poke')
+
+        card.innerHTML = `
+        <p>${datos.id}</p>
+        <div class="card-image">
+        <img class="img-fluid" src="${datos.sprites.front_default}" alt="imagen de ${datos.name}">
+        <span class="badge-top">${datos.name}</span>
+        </div>
+        <div class="card-body">
+        </div>
+        `;
+        
+        contenidoCards.appendChild(card);
+        return true
+    }
 
 }

@@ -28,7 +28,7 @@
 }
 
 .pokemones{
-    display: flex;
+    display: none;
     flex-wrap: wrap;
 }
 
