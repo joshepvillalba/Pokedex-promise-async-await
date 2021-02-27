@@ -49,7 +49,7 @@ function buscar(){
 
             case "8":
                 inicio = 810;
-                pokemones = 890;
+                pokemones = 898;
                 break;
 
             default:
