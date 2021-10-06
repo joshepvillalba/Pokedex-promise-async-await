@@ -1,111 +1,90 @@
+let contenidoCards = document.getElementById('pokemones');
+let cargar = document.getElementById("cargando");
+let valorCarga = document.getElementById("barraCargando");
 
-function buscar(){  
-    let api = 'https://pokeapi.co/api/v2/pokemon/';
-    let generacion = document.getElementById("inline_field").value;
-    let contenidoCards = document.getElementById('pokemones');
+function dibujarPokemones(id,name,sprite){
 
+    const card = document.createElement('article');
+    card.classList.add('nes-container')
+    card.classList.add('con-poke')
+
+    card.innerHTML = `
+        <p>${id}</p>
+        <div class="card-image">
+        <img class="img-fluid" src="${sprite}" alt="imagen de ${name}">
+        <span class="badge-top">${name}</span>
+        </div>
+        <div class="card-body">
+        </div>
+        `;
+        
+        contenidoCards.appendChild(card);
+}
+
+async function getPokemon(api,ini,fin){
+    for (let i = ini; i <= fin; i++){
+        pokemon = await fetch(api+i);
+        pokemonjson = await pokemon.json();
+        dibujarPokemones(pokemonjson.id,pokemonjson.name,pokemonjson.sprites.front_default)
+        valorCarga.value=i-ini;
+    }
+    cargar.style.cssText = "display:none;";
+}
+
+function buscar(){
+    const API = 'https://pokeapi.co/api/v2/pokemon/';
     contenidoCards.innerHTML = "";
+    cargar.style.cssText = "display:block;";
+    let inicio = 1;
+    let pokemones = 151;
+    let generacion = document.getElementById("inline_field").value;
+    console.log(generacion)
+    switch (generacion) {
+        case '1':
+            inicio = "1";
+            pokemones = 151;
+            break;
+        case '2':
+            inicio = 152;
+            pokemones = 251;
+            break;
 
-    let pokemones;
-    let inicio;
+        case '3':
+            inicio = 252;
+            pokemones = 386;
+            break;
 
-        switch (generacion) {
-            case 1:
-                inicio = "1";
-                pokemones = 151;
-                break;
-            case "2":
-                inicio = 152;
-                pokemones = 251;
-                break;
+        case '4':
+            inicio = 387;
+            pokemones = 493;
+            break;
+        
+        case '5':
+            inicio = 494;
+            pokemones = 649;
+            break;
 
-            case "3":
-                inicio = 252;
-                pokemones = 386;
-                break;
+        case '6':
+            inicio = 650;
+            pokemones = 721;
+            break;
 
-            case "4":
-                inicio = 387;
-                pokemones = 493;
-                break;
-            
-            case "5":
-                inicio = 494;
-                pokemones = 649;
-                break;
-            case "6":
-                inicio = 650;
-                pokemones = 721;
-                break;
+        case '7':
+            inicio = 722;
+            pokemones = 809;
+            break;
 
-            case "7":
-                incio = 722;
-                pokemones = 809;
-                break;
+        case '8':
+            inicio = 810;
+            pokemones = 898;
+            break;
 
-            case "8":
-                inicio = 810;
-                pokemones = 890;
-                break;
-
-            default:
-                inicio = 1;
-                pokemones = 151;
-                break;
-        }
-
-    const fetchData = (api) =>{
-        return new Promise((resolve,reject)=>{
-            const xhttp = new XMLHttpRequest();
-            xhttp.open('GET',api,true);
-            xhttp.onreadystatechange = (()=>{
-                if(xhttp.readyState === 4){
-                    (xhttp.status === 200)
-                    ? resolve(JSON.parse(xhttp.responseText))
-                    : reject(new Error('Error ', api))
-                }
-            })
-            xhttp.send();
-        })
+        default:
+            inicio = 1;
+            pokemones = 151;
+            break;
     }
-
-    const anotherFunction = async (api) => {
-        try {
-            const data = await fetchData(api);
-
-            const datos = {
-                name: data.name,
-                id: data.id,
-                sprites: data.sprites.front_default,
-            }
-
-            const card = document.createElement('article');
-            card.classList.add('nes-container')
-            card.classList.add('con-poke')
-    
-            card.innerHTML = `
-            <p>${datos.id}</p>
-            <div class="card-image">
-            <img class="img-fluid" src="${datos.sprites}" alt="imagen de ${datos.name}">
-            <span class="badge-top">${datos.name}</span>
-            </div>
-            <div class="card-body">
-            </div>
-            `;
-            
-            contenidoCards.appendChild(card);
-
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    let mapeo = [];
-    for( let i = inicio; i<= pokemones; i++){
-        mapeo.push(i);
-    }
-
-    mapeo.map(function(x){
-        anotherFunction(api+x);
-     });
+    console.log(inicio,pokemones)
+    getPokemon(API,inicio,pokemones)
+    contenidoCards.style.cssText = "display:flex;";
 }
