@@ -33,6 +33,12 @@
 }
 
 .pokemones .con-poke{
-width: 200px;
-height: 200px;
+    max-width: 250px;
+    max-height: 250px;
+/* width: 200px;
+height: 200px; */
+}
+
+.info{
+    text-align:center;
 }

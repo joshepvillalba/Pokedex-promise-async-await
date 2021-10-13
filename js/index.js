@@ -8,16 +8,15 @@ function dibujarPokemones(id,name,sprite){
     card.classList.add('nes-container')
     card.classList.add('con-poke')
 
-    card.innerHTML = `
+    card.innerHTML = `<a href="javascript:popUp('/detalle.html?pk=${id}')">
         <p>${id}</p>
         <div class="card-image">
         <img class="img-fluid" src="${sprite}" alt="imagen de ${name}">
         <span class="badge-top">${name}</span>
         </div>
         <div class="card-body">
-        </div>
-        `;
-        
+        </div></a>
+        `;    
         contenidoCards.appendChild(card);
 }
 
