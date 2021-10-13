@@ -12,7 +12,7 @@ function dibujarPokemones(id,name,sprite){
         <p>${id}</p>
         <div class="card-image">
         <img class="img-fluid" src="${sprite}" alt="imagen de ${name}">
-        <span class="badge-top">${name}</span>
+        <p><span class="badge-top">${name}</span></p>
         </div>
         <div class="card-body">
         </div></a>
