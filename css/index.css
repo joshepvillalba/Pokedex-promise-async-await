@@ -30,6 +30,7 @@
 .pokemones{
     display: none;
     flex-wrap: wrap;
+    grid-gap: 1px;
 }
 
 .pokemones .con-poke{
